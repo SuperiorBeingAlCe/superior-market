@@ -109,4 +109,23 @@ public class ProductService {
 
         productRepository.delete(product);
     }
+    
+    @Transactional
+    public ProductResponse findbybarcode(String barcode) {
+    	Product product = productRepository.findByBarcode(barcode)
+                      .orElseThrow(() -> 
+                      new IllegalArgumentException("Ürün bulunamadı"+ barcode));
+    	
+		return toResponse(product);
+    	
+    }
+    
+    @Transactional
+    public ProductResponse findBySku(String sku) {
+    	Product product = productRepository.findBySku(sku)
+    			.orElseThrow(() -> new IllegalArgumentException("Sku bulunamadı" + sku)
+    					);
+    	return toResponse(product);
+    	
+    }
 }
